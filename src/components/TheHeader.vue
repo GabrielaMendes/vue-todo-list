@@ -3,7 +3,7 @@
 <template>
   <header class="flex items-start justify-between">
     <h1
-      class="font-josefin-sans font-bold text-5xl text-white tracking-[.3em] md:text-6xl"
+      class="font-bold text-5xl text-white tracking-[.3em] md:text-6xl"
     >
       TODO
     </h1>
