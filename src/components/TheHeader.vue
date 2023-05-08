@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <header class="flex items-start justify-between">
+  <header class="flex items-start justify-between mb-12">
     <h1
       class="font-bold text-5xl text-white tracking-[.3em] md:text-6xl"
     >
