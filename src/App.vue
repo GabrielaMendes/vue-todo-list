@@ -1,22 +1,10 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
+import NewTodo from "@/components/NewTodo.vue";
 
-const newTodo = ref("");
-const validTodo = computed(() => {
-  return newTodo.value.trim().length >= 3
-})
-const errorMessage = ref(false);
-
-const addTodo = () => {
-  if (!validTodo.value) {
-    errorMessage.value = true;
-    return;
-  }
-
-  todoList.value.push(newTodo.value);
-  newTodo.value = "";
-  errorMessage.value = false;
+const addTodo = (newTodo) => {
+  todoList.value.push(newTodo);
 };
 
 // dumb data
@@ -41,36 +29,7 @@ const todoList = ref([
 
         <main>
           <!-- New Todo -->
-          <form
-            @submit.prevent="addTodo"
-            class="flex items-start bg-white rounded-md px-7 py-6 relative"
-          >
-            <input
-              type="checkbox"
-              name="checkbox"
-              id="checkbox"
-              disabled
-              class="appearance-none h-6 w-6 border-[1.5px] border-gray-200 rounded-full mr-4"
-            />
-            <div>
-              <label for="newTodo" class="hidden">New Todo:</label>
-              <input
-                id="newTodo"
-                type="text"
-                placeholder="Create a new todo..."
-                v-model="newTodo"
-                class="focus:outline-none"
-                @blur="errorMessage = false"
-              />
-                <!-- Error Message -->
-                <p
-                  v-if="errorMessage && !validTodo"
-                  class="text-red-500 text-base"
-                >
-                  Please enter a valid todo!
-                </p>
-            </div>
-          </form>
+          <NewTodo @add-todo="addTodo"/>
 
           <p v-for="(todo, i) in todoList" :key="i">
             {{ todo }}
