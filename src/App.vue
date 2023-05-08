@@ -12,6 +12,14 @@ import TheHeader from "@/components/TheHeader.vue";
       <div class="container pt-16 px-8 max-w-4xl md:pt-24">
         <!-- App Header -->
         <TheHeader />
+
+        <main>
+          <!-- New Todo -->
+          <form @submit="addTodo" class="flex items-start bg-white rounded-md px-7 py-6">
+            <input type="checkbox" name="checkbox" id="checkbox" disabled class="appearance-none h-6 w-6 border-[1.5px] border-gray-200 rounded-full mr-4">
+            <input type="text" placeholder="Create a new todo..." class="focus:outline-none">
+          </form>
+        </main>
       </div>
     </div>
   </div>
