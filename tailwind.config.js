@@ -4,6 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "light-blue": "#47DAFF",
+        "strong-purple-pink": "#C058F3",
         "very-dark-blue": "#161722",
         "very-dark-desaturated-blue": "#25273C",
         "light-grayish-blue": "#CACDE8",
@@ -13,7 +15,7 @@ module.exports = {
         "very-dark-bluish-gray": "#393A4C",
       },
       fontFamily: {
-        "josefin-sans": ["'Josefin Sans', sans-serif"]
+        "josefin-sans": ["'Josefin Sans', sans-serif"],
       },
       container: {
         center: true,
