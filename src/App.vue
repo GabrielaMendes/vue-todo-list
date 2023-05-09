@@ -2,9 +2,14 @@
 import { ref } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
+import TodoItem from "@/components/TodoItem.vue";
 
 const addTodo = (newTodo) => {
   todoList.value.push(newTodo);
+};
+
+const removeTodo = (index) => {
+  todoList.value.splice(index, 1);
 };
 
 // dumb data
@@ -29,11 +34,19 @@ const todoList = ref([
 
         <main>
           <!-- New Todo -->
-          <NewTodo @add-todo="addTodo"/>
+          <NewTodo @add-todo="addTodo" />
 
-          <p v-for="(todo, i) in todoList" :key="i">
-            {{ todo }}
-          </p>
+          <!-- Todo List -->
+          <ul class="mt-5">
+            <TodoItem
+              class="fist:rounded-md"
+              v-for="(todo, i) in todoList"
+              :key="i"
+              :todo="todo"
+              :index="i"
+              @remove-todo="removeTodo(i)"
+            />
+          </ul>
         </main>
       </div>
     </div>
