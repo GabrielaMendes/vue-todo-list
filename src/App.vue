@@ -59,6 +59,10 @@ const todoList = ref([
 
           <!-- Todo List -->
           <div class="mt-5 rounded-md bg-white">
+            <div v-if="todoList.length === 0" class="text-center px-7 py-6">
+              <h3 class="mt-2 mb-3 text-3xl text-transparent font-bold bg-gradient-to-br from-light-blue to-strong-purple-pink bg-clip-text">No todos here</h3>
+              <p class="text-base">Add a new todo to start</p>
+            </div>
             <TodoItem
               v-for="todo in todoList"
               :key="todo.id"
