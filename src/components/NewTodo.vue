@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, defineEmits } from "vue";
+import { ref, computed } from "vue";
 
 const newTodo = ref("");
 const validTodo = computed(() => {

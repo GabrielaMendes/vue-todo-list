@@ -8,17 +8,37 @@ const addTodo = (newTodo) => {
   todoList.value.push(newTodo);
 };
 
-const removeTodo = (index) => {
-  console.log('removing')
-  todoList.value.splice(index, 1);
+const removeTodo = (id) => {
+  todoList.value = todoList.value.filter((todo) => todo.id !== id);
 };
+
+const toggleCompleted = (id) => {
+  const index = todoList.value.findIndex((todo) =>  todo.id === id)
+  todoList.value[index].completed = !todoList.value[index].completed;
+}
 
 // dumb data
 const todoList = ref([
-  "take out trash",
-  "study vuejs",
-  "go grocery shopping",
-  "update profile picture",
+  {
+    id: crypto.randomUUID(),
+    text: "take out trash",
+    completed: false,
+  },
+  {
+    id: crypto.randomUUID(),
+    text: "study vuejs",
+    completed: false,
+  },
+  {
+    id: crypto.randomUUID(),
+    text: "go grocery shopping",
+    completed: true,
+  },
+  {
+    id: crypto.randomUUID(),
+    text: "update profile picture",
+    completed: false,
+  },
 ]);
 </script>
 
@@ -40,11 +60,11 @@ const todoList = ref([
           <!-- Todo List -->
           <div class="mt-5 rounded-md bg-white">
             <TodoItem
-              v-for="(todo, i) in todoList"
-              :key="i"
+              v-for="todo in todoList"
+              :key="todo.id"
               :todo="todo"
-              :index="i"
-              @remove-todo="removeTodo(i)"
+              @remove-todo="removeTodo(todo.id)"
+              @toggle-completed="toggleCompleted(todo.id)"
             />
           </div>
         </main>

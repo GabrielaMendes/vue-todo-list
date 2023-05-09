@@ -4,17 +4,19 @@ import { getWidth } from '@/utils'
 
 const props = defineProps({
   todo: {
-    type: String,
+    type: Object,
     required: true,
   }
 });
 
 const removeVisible = ref(false);
 const checkHover = ref(false);
-const checked = ref(false);
+const checked = ref(props.todo.completed);
 
+const emit = defineEmits(["toggleCompleted", "removeTodo"]);
 const toggleChecked = () => {
   checked.value = !checked.value;
+  emit('toggleCompleted');
 };
 
 const applyGradient = () => {
@@ -53,11 +55,10 @@ const applyGradient = () => {
       @keyup.enter="toggleChecked"
     />
 
-    <p :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo }}</p>
+    <p :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo.text }}</p>
     <button
       type="button"
       @click.prevent="$emit('removeTodo')"
-      @keypressed.enter="$emit('removeTodo')"
       @focus="removeVisible = true"
       @blur="removeVisible = false"
       class="self-center ml-auto focus:outline-none"
