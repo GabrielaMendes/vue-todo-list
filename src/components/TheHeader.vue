@@ -7,11 +7,11 @@
     >
       TODO
     </h1>
-    <button type="button">
+    <button type="button" class="rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ce8ef8] focus-visible:ring-offset-4 focus-visible:ring-offset-[#8C94F7]">
       <img
         src="src/assets/images/icon-moon.svg"
         alt="moon icon"
-        class="h-9 md:h-11"
+        class="w-full h-9 md:h-11"
       />
     </button>
   </header>

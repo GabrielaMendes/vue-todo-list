@@ -6,6 +6,7 @@ const validTodo = computed(() => {
   return newTodo.value.trim().length >= 3;
 });
 const errorMessage = ref(false);
+const addVisible = ref(false);
 
 const emit = defineEmits(["addTodo"]);
 const sendTodo = () => {
@@ -40,12 +41,33 @@ const sendTodo = () => {
         placeholder="Create a new todo..."
         v-model="newTodo"
         class="focus:outline-none"
-        @blur="errorMessage = false"
+        @blur="errorMessage = false; addVisible = false"
+        @focus="addVisible = true"
       />
       <!-- Error Message -->
       <p v-if="errorMessage && !validTodo" class="text-red-500 text-base">
         Please enter a valid todo!
       </p>
     </div>
+    <button
+      type="submit"
+      @focus="addVisible = true"
+      @blur="addVisible = false"
+      class="self-center ml-auto focus:outline-none"
+    >
+      <img
+        v-show="addVisible"
+        src="src/assets/images/icon-cross.svg"
+        alt="add todo"
+        class="rotate-45"
+      />
+    </button>
   </form>
 </template>
+
+<style scoped>
+img:hover,
+button:focus {
+  filter: invert(56%) sepia(78%) saturate(407%) hue-rotate(182deg) brightness(102%) contrast(96%);
+}
+</style>

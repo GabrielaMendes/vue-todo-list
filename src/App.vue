@@ -9,6 +9,7 @@ const addTodo = (newTodo) => {
 };
 
 const removeTodo = (index) => {
+  console.log('removing')
   todoList.value.splice(index, 1);
 };
 
@@ -37,16 +38,15 @@ const todoList = ref([
           <NewTodo @add-todo="addTodo" />
 
           <!-- Todo List -->
-          <ul class="mt-5">
+          <div class="mt-5 rounded-md bg-white">
             <TodoItem
-              class="fist:rounded-md"
               v-for="(todo, i) in todoList"
               :key="i"
               :todo="todo"
               :index="i"
               @remove-todo="removeTodo(i)"
             />
-          </ul>
+          </div>
         </main>
       </div>
     </div>

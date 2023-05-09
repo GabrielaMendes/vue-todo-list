@@ -24,11 +24,12 @@ const applyGradient = () => {
 
   return  checkHover.value || checked.value
 }
+
 </script>
 
 <template>
   <div
-    class="flex items-start bg-white px-7 py-6"
+    class="flex items-start px-7 py-6"
     @mouseenter="removeVisible = true"
     @mouseleave="removeVisible = false"
   >
@@ -49,13 +50,17 @@ const applyGradient = () => {
         'before:hidden': !checked,
       }"
       @click.prevent="toggleChecked"
+      @keyup.enter="toggleChecked"
     />
 
     <p :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo }}</p>
     <button
       type="button"
       @click.prevent="$emit('removeTodo')"
-      class="self-center ml-auto"
+      @keypressed.enter="$emit('removeTodo')"
+      @focus="removeVisible = true"
+      @blur="removeVisible = false"
+      class="self-center ml-auto focus:outline-none"
     >
       <img
         v-show="removeVisible"
