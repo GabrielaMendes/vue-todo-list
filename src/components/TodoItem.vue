@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, computed, defineProps } from "vue";
 import { getWidth } from '@/utils'
 
 const props = defineProps({
@@ -11,16 +11,20 @@ const props = defineProps({
 
 const removeVisible = ref(false);
 const checkHover = ref(false);
-const checked = ref(props.todo.completed);
+const checked = computed(() => props.todo.completed);
 
 const emit = defineEmits(["toggleCompleted", "removeTodo"]);
+
 const toggleChecked = () => {
-  checked.value = !checked.value;
-  emit('toggleCompleted');
+  emit('toggleCompleted', props.todo.id);
 };
 
+const removeTodo = () => {
+  emit('removeTodo', props.todo.id)
+}
+
 const applyGradient = () => {
-  if (getWidth() < 600) {
+  if (getWidth() < 640) {
     return checked.value
   }
 
@@ -58,7 +62,7 @@ const applyGradient = () => {
     <p :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo.text }}</p>
     <button
       type="button"
-      @click.prevent="$emit('removeTodo')"
+      @click.prevent="removeTodo"
       @focus="removeVisible = true"
       @blur="removeVisible = false"
       class="self-center ml-auto focus:outline-none"

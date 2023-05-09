@@ -4,8 +4,12 @@ import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
 
-const addTodo = (newTodo) => {
-  todoList.value.push(newTodo);
+const addTodo = (newTodoText) => {
+  todoList.value.push({
+    id: crypto.randomUUID(),
+    text: newTodoText,
+    completed: false,
+  });
 };
 
 const removeTodo = (id) => {
@@ -13,8 +17,8 @@ const removeTodo = (id) => {
 };
 
 const toggleCompleted = (id) => {
-  const index = todoList.value.findIndex((todo) =>  todo.id === id)
-  todoList.value[index].completed = !todoList.value[index].completed;
+  const todo = todoList.value.find((todo) =>  todo.id === id)
+  todo.completed = !todo.completed;
 }
 
 // dumb data
@@ -67,8 +71,8 @@ const todoList = ref([
               v-for="todo in todoList"
               :key="todo.id"
               :todo="todo"
-              @remove-todo="removeTodo(todo.id)"
-              @toggle-completed="toggleCompleted(todo.id)"
+              @remove-todo="removeTodo"
+              @toggle-completed="toggleCompleted"
             />
           </div>
         </main>
