@@ -52,7 +52,7 @@ const applyGradient = () => {
       @mouseleave="checkHover = false"
       @focus="checkHover = true"
       @blur="checkHover = false"
-      class="appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative focus:outline-none after:h-[22.3px] after:w-[22.3px] after:bg-white after:rounded-full after:absolute after:content-[''] after:left-[1.15px] after:top-[1.15px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
+      class="appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative my-focus-visible after:h-[22.3px] after:w-[22.3px] after:bg-white after:rounded-full after:absolute after:content-[''] after:left-[1.15px] after:top-[1.15px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
       :class="{
         'bg-gradient-to-br from-light-blue to-strong-purple-pink relative': applyGradient(),
         'after:hidden': checked,
@@ -68,7 +68,7 @@ const applyGradient = () => {
       @click.prevent="removeTodo"
       @focus="removeVisible = true"
       @blur="removeVisible = false"
-      class="self-center ml-auto focus:outline-none"
+      class="rounded-sm self-center ml-auto my-focus-visible"
     >
       <img
         v-show="removeVisible"

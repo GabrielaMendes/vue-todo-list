@@ -53,22 +53,14 @@ const sendTodo = () => {
       type="submit"
       @focus="addVisible = true"
       @blur="addVisible = false"
-      class="self-center ml-auto focus:outline-none"
+      class="rounded-sm self-center ml-auto my-focus-visible"
     >
       <img
         v-show="addVisible"
         src="src/assets/images/icon-cross.svg"
         alt="add todo"
-        class="rotate-45"
+        class="rotate-45 hover:my-filter"
       />
     </button>
   </form>
 </template>
-
-<style scoped>
-/* change svg color on hover and focus */
-img:hover,
-button:focus-visible {
-  filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg) brightness(97%) contrast(99%);
-}
-</style>

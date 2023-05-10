@@ -7,7 +7,7 @@
     >
       TODO
     </h1>
-    <button type="button" class="rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ce8ef8] focus-visible:ring-offset-4 focus-visible:ring-offset-[#8C94F7]">
+    <button type="button" class="rounded-full my-focus-visible focus-visible:ring-offset-[#8C94F7]">
       <img
         src="src/assets/images/icon-moon.svg"
         alt="moon icon"

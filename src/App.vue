@@ -139,7 +139,7 @@ const todosToShow = computed(() => {
               <button
                 type="button"
                 @click.prevent="clearCompleted"
-                class="text-base hover:text-very-dark-grayish-blue"
+                class="rounded-sm text-sm hover:text-very-dark-grayish-blue my-focus-visible"
               >
                 Clear Completed
               </button>
