@@ -18,7 +18,7 @@ const changeFilter = () => {
 <template>
   <button
     @click.prevent="changeFilter"
-    class="rounded-sm hover:text-very-dark-grayish-blue my-focus-visible"
+    class="rounded-sm font-semibold hover:text-very-dark-grayish-blue my-focus-visible"
     :class="props.currentFilter === filter ? 'text-blue-500 pointer-events-none' : ''"
   >
     <slot></slot>

@@ -38,7 +38,7 @@ const applyGradient = () => {
 
 <template>
   <div
-    class="flex items-start px-7 py-6"
+    class="flex items-start p-reactive border-t-[1px] border-gray-200 first:border-none"
     @mouseenter="removeVisible = true"
     @mouseleave="removeVisible = false"
   >

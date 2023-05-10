@@ -80,10 +80,10 @@ const todosToShow = computed(() => {
 </script>
 
 <template>
-  <div class="bg-gray-100 min-w-screen min-h-screen">
+  <div class="min-w-screen min-h-screen">
     <!-- Background Picture -->
     <div
-      class="bg-[url('src/assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-top bg-cover w-full h-80 md:bg-[url('src/assets/images/bg-desktop-light.jpg')] md:h-96"
+      class="bg-[url('src/assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-top bg-cover w-full h-[278px] md:bg-[url('src/assets/images/bg-desktop-light.jpg')] md:h-[360px]"
     >
       <!-- App Content -->
       <div class="container pt-16 px-8 max-w-4xl md:pt-24">
@@ -95,7 +95,7 @@ const todosToShow = computed(() => {
           <NewTodo @add-todo="addTodo" />
 
           <!-- Todo List -->
-          <div class="mt-5 rounded-md bg-white">
+          <div class="mt-5 rounded-md bg-white shadow-custom">
             <div v-if="todoList.length === 0" class="text-center px-7 py-6">
               <h3
                 class="mt-2 mb-3 text-3xl text-transparent font-bold bg-gradient-to-br from-light-blue to-strong-purple-pink bg-clip-text"
@@ -114,11 +114,11 @@ const todosToShow = computed(() => {
             />
 
             <!-- Summary, Filters and Clear -->
-            <div class="text-dark-grayish-blue flex justify-between px-7 py-6">
-              <p class="text-base">{{ todosLeft.length }} items left</p>
+            <div class="text-dark-grayish-blue flex justify-between px-7 py-6 border-t-[1px] border-gray-200">
+              <p class="text-sm">{{ todosLeft.length }} items left</p>
               <div
                 id="filters"
-                class="hidden md:flex gap-5 md:relative md:left-6"
+                class="text-base hidden md:flex gap-5 md:relative md:left-6"
               >
                 <BaseFilterButton
                   :currentFilter="filter"
@@ -147,8 +147,8 @@ const todosToShow = computed(() => {
           </div>
 
           <!-- Filters Mobile -->
-          <div class="text-dark-grayish-blue mt-5 rounded-md bg-white md:hidden">
-            <div class="px-7 py-6 justify-center flex gap-5">
+          <div class="text-dark-grayish-blue  text-base mt-5 rounded-md bg-white md:hidden">
+            <div class="p-reactive only:justify-center flex gap-5">
               <BaseFilterButton
                 :currentFilter="filter"
                 @change-filter="changeFilter"

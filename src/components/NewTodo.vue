@@ -24,7 +24,7 @@ const sendTodo = () => {
 <template>
   <form
     @submit.prevent="sendTodo"
-    class="flex items-start bg-white rounded-md px-7 py-6 relative"
+    class="flex items-start bg-white rounded-md p-reactive relative"
   >
     <input
       type="checkbox"

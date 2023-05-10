@@ -10,4 +10,8 @@
   .my-filter {
     filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg) brightness(97%) contrast(99%);
   }
+
+  .p-reactive {
+    @apply px-6 py-5 md:px-7 md:py-6
+  }
 }
