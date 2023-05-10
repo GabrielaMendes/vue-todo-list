@@ -64,6 +64,18 @@ const filter = ref("All");
 const changeFilter = (option) => {
   filter.value = option;
 };
+
+const todosToShow = computed(() => {
+  if (filter.value === "Active") {
+    return todosLeft.value;
+  }
+
+  if (filter.value === "Completed") {
+    return todosCompleted.value;
+  }
+
+  return todoList.value;
+});
 </script>
 
 <template>
@@ -93,7 +105,7 @@ const changeFilter = (option) => {
             </div>
 
             <TodoItem
-              v-for="todo in todoList"
+              v-for="todo in todosToShow"
               :key="todo.id"
               :todo="todo"
               @remove-todo="removeTodo"
@@ -106,22 +118,35 @@ const changeFilter = (option) => {
               <ul class="hidden md:flex gap-5 md:relative md:left-6">
                 <li
                   role="button"
+                  @click="changeFilter('All')"
                   class="hover:text-very-dark-grayish-blue"
-                  :class="filter === 'All' ? 'text-blue-500 pointer-events-none' : ''"
+                  :class="
+                    filter === 'All' ? 'text-blue-500 pointer-events-none' : ''
+                  "
                 >
                   All
                 </li>
                 <li
                   role="button"
+                  @click="changeFilter('Active')"
                   class="hover:text-very-dark-grayish-blue"
-                  :class="filter === 'Active' ? 'text-blue-500 pointer-events-none' : ''"
+                  :class="
+                    filter === 'Active'
+                      ? 'text-blue-500 pointer-events-none'
+                      : ''
+                  "
                 >
                   Active
                 </li>
                 <li
                   role="button"
+                  @click="changeFilter('Completed')"
                   class="hover:text-very-dark-grayish-blue"
-                  :class="filter === 'Completed' ? 'text-blue-500 pointer-events-none' : ''"
+                  :class="
+                    filter === 'Completed'
+                      ? 'text-blue-500 pointer-events-none'
+                      : ''
+                  "
                 >
                   Completed
                 </li>
