@@ -66,8 +66,9 @@ const sendTodo = () => {
 </template>
 
 <style scoped>
+/* change svg color on hover and focus */
 img:hover,
-button:focus {
-  filter: invert(56%) sepia(78%) saturate(407%) hue-rotate(182deg) brightness(102%) contrast(96%);
+button:focus-visible {
+  filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg) brightness(97%) contrast(99%);
 }
 </style>
