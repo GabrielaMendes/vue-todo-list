@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
+import BaseFilterButton from "./components/BaseFilterButton.vue";
 
 // dumb data
 const todoList = ref([
@@ -115,42 +116,26 @@ const todosToShow = computed(() => {
             <!-- Summary, Filters and Clear -->
             <div class="text-dark-grayish-blue flex justify-between px-7 py-6">
               <p class="text-base">{{ todosLeft.length }} items left</p>
-              <ul class="hidden md:flex gap-5 md:relative md:left-6">
-                <li
-                  role="button"
-                  @click="changeFilter('All')"
-                  class="hover:text-very-dark-grayish-blue"
-                  :class="
-                    filter === 'All' ? 'text-blue-500 pointer-events-none' : ''
-                  "
+              <div
+                id="filters"
+                class="hidden md:flex gap-5 md:relative md:left-6"
+              >
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >All</BaseFilterButton
                 >
-                  All
-                </li>
-                <li
-                  role="button"
-                  @click="changeFilter('Active')"
-                  class="hover:text-very-dark-grayish-blue"
-                  :class="
-                    filter === 'Active'
-                      ? 'text-blue-500 pointer-events-none'
-                      : ''
-                  "
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >Active</BaseFilterButton
                 >
-                  Active
-                </li>
-                <li
-                  role="button"
-                  @click="changeFilter('Completed')"
-                  class="hover:text-very-dark-grayish-blue"
-                  :class="
-                    filter === 'Completed'
-                      ? 'text-blue-500 pointer-events-none'
-                      : ''
-                  "
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >Completed</BaseFilterButton
                 >
-                  Completed
-                </li>
-              </ul>
+              </div>
               <button
                 type="button"
                 @click.prevent="clearCompleted"
@@ -162,18 +147,24 @@ const todosToShow = computed(() => {
           </div>
 
           <!-- Filters Mobile -->
-          <div class="text-dark-grayish-blue mt-5 rounded-md bg-white">
-            <ul class="px-7 py-6 justify-center flex gap-5">
-              <li role="button" class="hover:text-very-dark-grayish-blue">
-                All
-              </li>
-              <li role="button" class="hover:text-very-dark-grayish-blue">
-                Active
-              </li>
-              <li role="button" class="hover:text-very-dark-grayish-blue">
-                Completed
-              </li>
-            </ul>
+          <div class="text-dark-grayish-blue mt-5 rounded-md bg-white md:hidden">
+            <div class="px-7 py-6 justify-center flex gap-5">
+              <BaseFilterButton
+                :currentFilter="filter"
+                @change-filter="changeFilter"
+                >All</BaseFilterButton
+              >
+              <BaseFilterButton
+                :currentFilter="filter"
+                @change-filter="changeFilter"
+                >Active</BaseFilterButton
+              >
+              <BaseFilterButton
+                :currentFilter="filter"
+                @change-filter="changeFilter"
+                >Completed</BaseFilterButton
+              >
+            </div>
           </div>
         </main>
       </div>
