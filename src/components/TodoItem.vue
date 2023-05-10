@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { getWidth } from '@/utils'
+import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 
 const props = defineProps({
   todo: {
@@ -23,8 +23,11 @@ const removeTodo = () => {
   emit('removeTodo', props.todo.id)
 }
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greater('md')
+
 const applyGradient = () => {
-  if (getWidth() < 640) {
+  if (!isDesktop) {
     return checked.value
   }
 
