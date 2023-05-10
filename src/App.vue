@@ -1,33 +1,28 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
 import BaseFilterButton from "./components/BaseFilterButton.vue";
+import { watchDeep } from '@vueuse/core'
 
-// dumb data
-const todoList = ref([
-  {
-    id: crypto.randomUUID(),
-    text: "take out trash",
-    completed: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    text: "study vuejs",
-    completed: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    text: "go grocery shopping",
-    completed: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    text: "update profile picture",
-    completed: false,
-  },
-]);
+
+const todoList = ref([])
+
+watchDeep(todoList, (newValue) => {
+  localStorage.setItem('todoList', JSON.stringify(newValue))
+})
+
+const filter = ref("All");
+
+watch(filter, (newValue) => {
+  localStorage.setItem('filter', newValue)
+})
+
+onMounted(() => {
+  todoList.value = JSON.parse(localStorage.getItem('todoList')) || []
+  filter.value = localStorage.getItem('filter')|| "All"
+})
 
 const addTodo = (newTodoText) => {
   todoList.value.push({
@@ -59,8 +54,6 @@ const todosLeft = computed(() => {
 const todosCompleted = computed(() => {
   return todoList.value.filter((todo) => todo.completed);
 });
-
-const filter = ref("All");
 
 const changeFilter = (option) => {
   filter.value = option;

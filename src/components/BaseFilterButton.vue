@@ -22,5 +22,5 @@ const changeFilter = () => {
     :class="props.currentFilter === filter ? 'text-blue-500 pointer-events-none' : ''"
   >
     <slot></slot>
-</button>
+  </button>
 </template>
