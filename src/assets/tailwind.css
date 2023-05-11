@@ -12,6 +12,10 @@
       brightness(97%) contrast(99%);
   }
 
+  .my-gradient {
+    @apply bg-gradient-to-br from-light-blue to-strong-purple-pink;
+  }
+
   .p-reactive {
     @apply px-6 py-5 md:px-7 md:py-6;
   }
@@ -24,4 +28,22 @@
 
 .drag {
   @apply bg-blue-500 bg-opacity-[0.3] rounded-md border-none
+}
+
+/* Transition classes */
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-all duration-300 ease-out;
+}
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0;
+}
+.fade-200-enter-active,
+.fade-200-leave-active {
+  @apply transition-all duration-200 ease-out;
+}
+.fade-200-enter-from,
+.fade-200-leave-to {
+  @apply opacity-0;
 }

@@ -52,9 +52,9 @@ const applyGradient = () => {
       @mouseleave="checkHover = false"
       @focus="checkHover = true"
       @blur="checkHover = false"
-      class="appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative my-focus-visible after:h-[22.3px] after:w-[22.3px] after:bg-white after:rounded-full after:absolute after:content-[''] after:left-[1.15px] after:top-[1.15px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
+      class="appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative my-focus-visible after:h-[22.3px] after:w-[22.3px] after:border-[1.7px] after:bg-white after:rounded-full after:absolute after:content-[''] after:left-[1.15px] after:top-[1.15px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
       :class="{
-        'bg-gradient-to-br from-light-blue to-strong-purple-pink relative': applyGradient(),
+        'my-gradient relative': applyGradient(),
         'after:hidden': checked,
         'before:hidden': !checked,
       }"
@@ -62,7 +62,7 @@ const applyGradient = () => {
       @keyup.enter="toggleChecked"
     />
 
-    <p :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo.text }}</p>
+    <p class="transition-colors duration-150 ease-in" :class="checked ? 'line-through text-gray-300' : ''">{{ props.todo.text }}</p>
     <button
       type="button"
       @click.prevent="removeTodo"
@@ -70,17 +70,13 @@ const applyGradient = () => {
       @blur="removeVisible = false"
       class="rounded-sm self-center ml-auto my-focus-visible"
     >
-      <img
-        v-show="removeVisible"
-        src="src/assets/images/icon-cross.svg"
-        alt="remove todo"
-      />
+      <transition name="fade-200">
+        <img
+          v-show="removeVisible"
+          src="src/assets/images/icon-cross.svg"
+          alt="remove todo"
+        />
+      </transition>
     </button>
   </li>
 </template>
-
-<style scoped>
-.ghost > * {
-  visibility: hidden;
-}
-</style>

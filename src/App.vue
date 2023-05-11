@@ -1,11 +1,12 @@
 <script setup>
+import { vAutoAnimate } from "@formkit/auto-animate";
+import { watchDeep } from "@vueuse/core";
+import draggable from "vuedraggable";
 import { computed, onMounted, ref, watch } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
 import BaseFilterButton from "./components/BaseFilterButton.vue";
-import { watchDeep } from "@vueuse/core";
-import draggable from "vuedraggable";
 
 const todoList = ref([]);
 
@@ -25,7 +26,7 @@ onMounted(() => {
 });
 
 const addTodo = (newTodoText) => {
-  todoList.value.push({
+  todoList.value.unshift({
     id: crypto.randomUUID(),
     text: newTodoText,
     completed: false,
@@ -88,10 +89,10 @@ const todosToShow = computed(() => {
           <NewTodo @add-todo="addTodo" />
 
           <!-- Todo List -->
-          <div class="mt-5 rounded-md bg-white shadow-custom">
+          <div v-auto-animate class="mt-5 rounded-md bg-white shadow-custom">
             <div v-if="todoList.length === 0" class="text-center px-7 py-6">
               <h3
-                class="mt-2 mb-3 text-3xl text-transparent font-bold bg-gradient-to-br from-light-blue to-strong-purple-pink bg-clip-text"
+                class="mt-2 mb-3 text-3xl text-transparent font-bold my-gradient bg-clip-text"
               >
                 No todos here
               </h3>
@@ -101,6 +102,7 @@ const todosToShow = computed(() => {
             <!-- Draggable only when full list -->
             <draggable
               v-if="filter === 'All'"
+              v-auto-animate
               tag="ul"
               v-model="todoList"
               item-key="id"
@@ -117,7 +119,7 @@ const todosToShow = computed(() => {
             </draggable>
 
             <!-- Not allowed to drag -->
-            <div v-else>
+            <ul v-else v-auto-animate>
               <TodoItem
                 v-for="todo in todosToShow"
                 :key="todo.id"
@@ -125,11 +127,12 @@ const todosToShow = computed(() => {
                 @remove-todo="removeTodo"
                 @toggle-completed="toggleCompleted"
               />
-            </div>
+            </ul>
 
             <!-- Summary, Filters and Clear -->
             <div
               class="text-dark-grayish-blue flex justify-between px-7 py-6 border-t-[1px] border-gray-200"
+              :class="todoList.length === 0 ? ' hidden': ''"
             >
               <p class="text-sm">{{ todosLeft.length }} items left</p>
               <div
@@ -163,30 +166,40 @@ const todosToShow = computed(() => {
           </div>
 
           <!-- Filters Mobile -->
-          <div
-            class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white md:hidden"
-          >
-            <div class="p-reactive only:justify-center flex gap-5">
-              <BaseFilterButton
-                :currentFilter="filter"
-                @change-filter="changeFilter"
-                >All</BaseFilterButton
-              >
-              <BaseFilterButton
-                :currentFilter="filter"
-                @change-filter="changeFilter"
-                >Active</BaseFilterButton
-              >
-              <BaseFilterButton
-                :currentFilter="filter"
-                @change-filter="changeFilter"
-                >Completed</BaseFilterButton
-              >
+          <transition name="fade">
+            <div
+              class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white md:hidden"
+              :class="todoList.length === 0 ? ' hidden': ''"
+            >
+              <div class="p-reactive only:justify-center flex gap-5">
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >All</BaseFilterButton
+                >
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >Active</BaseFilterButton
+                >
+                <BaseFilterButton
+                  :currentFilter="filter"
+                  @change-filter="changeFilter"
+                  >Completed</BaseFilterButton
+                >
+              </div>
             </div>
-          </div>
+          </transition>
         </main>
 
-        <footer v-show="filter === 'All'" class="w-full mt-10 pb-5 text-center text-base text-dark-grayish-blue">Drag and drop to reorder list</footer>
+        <transition name="fade">
+          <footer
+            v-show="filter === 'All'"
+            class="w-full mt-10 pb-5 text-center text-base text-dark-grayish-blue"
+          >
+            Drag and drop to reorder list
+          </footer>
+        </transition>
       </div>
     </div>
   </div>
