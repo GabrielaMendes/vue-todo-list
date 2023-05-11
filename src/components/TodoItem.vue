@@ -52,9 +52,9 @@ const applyGradient = () => {
       @mouseleave="checkHover = false"
       @focus="checkHover = true"
       @blur="checkHover = false"
-      class="appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative my-focus-visible after:h-[22.3px] after:w-[22.3px] after:border-[1.7px] after:bg-white after:rounded-full after:absolute after:content-[''] after:left-[1.15px] after:top-[1.15px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
+      class="my-transition appearance-none cursor-pointer h-6 w-6 rounded-full mr-4 bg-gray-200 relative my-focus-visible after:h-[22.5px] after:w-[22.5px] after:bg-white after:rounded-full after:absolute after:left-[0.95px] after:top-[0.95px] before:content-[url('src/assets/images/icon-check.svg')] before:absolute before:left-[7px] before:top-[-1px]"
       :class="{
-        'my-gradient relative': applyGradient(),
+        'my-gradient': applyGradient(),
         'after:hidden': checked,
         'before:hidden': !checked,
       }"
@@ -80,3 +80,10 @@ const applyGradient = () => {
     </button>
   </li>
 </template>
+
+<style>
+.my-transition {
+  -webkit-transition: background-image 0.3 ease-in;
+  transition: background-image 0.3 ease-in;
+}
+</style>

@@ -1,12 +1,13 @@
 <script setup>
 import { vAutoAnimate } from "@formkit/auto-animate";
+import { useAutoAnimate } from "@formkit/auto-animate/vue"
 import { watchDeep } from "@vueuse/core";
 import draggable from "vuedraggable";
 import { computed, onMounted, ref, watch } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
-import BaseFilterButton from "./components/BaseFilterButton.vue";
+import BaseFilterButton from "@/components/BaseFilterButton.vue";
 
 const todoList = ref([]);
 
@@ -71,6 +72,9 @@ const todosToShow = computed(() => {
 
   return todoList.value;
 });
+
+// const [drag] = useAutoAnimate()
+
 </script>
 
 <template>
@@ -103,6 +107,7 @@ const todosToShow = computed(() => {
             <draggable
               v-if="filter === 'All'"
               v-auto-animate
+              ref="drag"
               tag="ul"
               v-model="todoList"
               item-key="id"
@@ -131,13 +136,13 @@ const todosToShow = computed(() => {
 
             <!-- Summary, Filters and Clear -->
             <div
-              class="text-dark-grayish-blue flex justify-between px-7 py-6 border-t-[1px] border-gray-200"
+              class="text-dark-grayish-blue grid grid-cols-2 md:grid-cols-3 p-reactive border-t-[1px] border-gray-200"
               :class="todoList.length === 0 ? ' hidden': ''"
             >
               <p class="text-sm">{{ todosLeft.length }} items left</p>
               <div
                 id="filters"
-                class="text-base hidden md:flex gap-5 md:relative md:left-6"
+                class="justify-self-center text-base hidden md:flex gap-5 "
               >
                 <BaseFilterButton
                   :currentFilter="filter"
@@ -158,7 +163,7 @@ const todosToShow = computed(() => {
               <button
                 type="button"
                 @click.prevent="clearCompleted"
-                class="rounded-sm text-sm hover:text-very-dark-grayish-blue my-focus-visible"
+                class="rounded-sm text-right text-sm my-focus-visible hover:text-very-dark-grayish-blue"
               >
                 Clear Completed
               </button>
@@ -168,10 +173,10 @@ const todosToShow = computed(() => {
           <!-- Filters Mobile -->
           <transition name="fade">
             <div
-              class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white md:hidden"
+              class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white"
               :class="todoList.length === 0 ? ' hidden': ''"
             >
-              <div class="p-reactive only:justify-center flex gap-5">
+              <div class="p-reactive flex gap-5 justify-center md:hidden">
                 <BaseFilterButton
                   :currentFilter="filter"
                   @change-filter="changeFilter"
