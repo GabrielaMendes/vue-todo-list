@@ -186,7 +186,7 @@ const todosToShow = computed(() => {
           </div>
         </main>
 
-        <footer v-show="filter === 'All'" class="w-full mt-10 text-center text-base text-dark-grayish-blue">Drag and drop to reorder list</footer>
+        <footer v-show="filter === 'All'" class="w-full mt-10 pb-5 text-center text-base text-dark-grayish-blue">Drag and drop to reorder list</footer>
       </div>
     </div>
   </div>

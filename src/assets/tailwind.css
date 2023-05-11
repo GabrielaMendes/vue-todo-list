@@ -15,12 +15,13 @@
   .p-reactive {
     @apply px-6 py-5 md:px-7 md:py-6;
   }
+}
 
-  .ghost {
-    @apply bg-gray-200 [&>*]:opacity-0
-  }
+/* Draggable classes */
+.ghost {
+  @apply bg-gray-200 first:rounded-t-md [&>*]:opacity-0
+}
 
-  .drag {
-    @apply bg-blue-500 bg-opacity-[0.3]
-  }
+.drag {
+  @apply bg-blue-500 bg-opacity-[0.3] rounded-md border-none
 }
