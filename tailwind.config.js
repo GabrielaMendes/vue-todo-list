@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         "light-blue": "#47DAFF",
         "strong-purple-pink": "#C058F3",
+        "light-purple-pink": "#CE8EF8",
         "very-dark-blue": "#161722",
         "very-dark-desaturated-blue": "#25273C",
         "light-grayish-blue": "#CACDE8",
@@ -21,7 +22,7 @@ module.exports = {
         center: true,
       },
       boxShadow: {
-        "custom": "0 10px 50px 0 rgba(0, 0, 0, 0.1)",
+        custom: "0 10px 50px 0 rgba(0, 0, 0, 0.1)",
       },
     },
   },

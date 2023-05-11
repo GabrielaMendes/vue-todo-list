@@ -4,25 +4,25 @@ import TheHeader from "@/components/TheHeader.vue";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoItem from "@/components/TodoItem.vue";
 import BaseFilterButton from "./components/BaseFilterButton.vue";
-import { watchDeep } from '@vueuse/core'
+import { watchDeep } from "@vueuse/core";
+import draggable from "vuedraggable";
 
-
-const todoList = ref([])
+const todoList = ref([]);
 
 watchDeep(todoList, (newValue) => {
-  localStorage.setItem('todoList', JSON.stringify(newValue))
-})
+  localStorage.setItem("todoList", JSON.stringify(newValue));
+});
 
 const filter = ref("All");
 
 watch(filter, (newValue) => {
-  localStorage.setItem('filter', newValue)
-})
+  localStorage.setItem("filter", newValue);
+});
 
 onMounted(() => {
-  todoList.value = JSON.parse(localStorage.getItem('todoList')) || []
-  filter.value = localStorage.getItem('filter')|| "All"
-})
+  todoList.value = JSON.parse(localStorage.getItem("todoList")) || [];
+  filter.value = localStorage.getItem("filter") || "All";
+});
 
 const addTodo = (newTodoText) => {
   todoList.value.push({
@@ -98,16 +98,39 @@ const todosToShow = computed(() => {
               <p class="text-base">Add a new todo to start</p>
             </div>
 
-            <TodoItem
-              v-for="todo in todosToShow"
-              :key="todo.id"
-              :todo="todo"
-              @remove-todo="removeTodo"
-              @toggle-completed="toggleCompleted"
-            />
+            <!-- Draggable only when full list -->
+            <draggable
+              v-if="filter === 'All'"
+              tag="ul"
+              v-model="todoList"
+              item-key="id"
+              drag-class="drag"
+              ghost-class="ghost"
+            >
+              <template #item="{ element }">
+                <TodoItem
+                  :todo="element"
+                  @remove-todo="removeTodo"
+                  @toggle-completed="toggleCompleted"
+                />
+              </template>
+            </draggable>
+
+            <!-- Not allowed to drag -->
+            <div v-else>
+              <TodoItem
+                v-for="todo in todosToShow"
+                :key="todo.id"
+                :todo="todo"
+                @remove-todo="removeTodo"
+                @toggle-completed="toggleCompleted"
+              />
+            </div>
 
             <!-- Summary, Filters and Clear -->
-            <div class="text-dark-grayish-blue flex justify-between px-7 py-6 border-t-[1px] border-gray-200">
+            <div
+              class="text-dark-grayish-blue flex justify-between px-7 py-6 border-t-[1px] border-gray-200"
+            >
               <p class="text-sm">{{ todosLeft.length }} items left</p>
               <div
                 id="filters"
@@ -140,7 +163,9 @@ const todosToShow = computed(() => {
           </div>
 
           <!-- Filters Mobile -->
-          <div class="text-dark-grayish-blue  text-base mt-5 rounded-md bg-white md:hidden">
+          <div
+            class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white md:hidden"
+          >
             <div class="p-reactive only:justify-center flex gap-5">
               <BaseFilterButton
                 :currentFilter="filter"
@@ -160,6 +185,8 @@ const todosToShow = computed(() => {
             </div>
           </div>
         </main>
+
+        <footer v-show="filter === 'All'" class="w-full mt-10 text-center text-base text-dark-grayish-blue">Drag and drop to reorder list</footer>
       </div>
     </div>
   </div>

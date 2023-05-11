@@ -4,14 +4,23 @@
 
 @layer utilities {
   .my-focus-visible {
-    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-[#ce8ef8] focus-visible:ring-offset-4;
+    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-light-purple-pink focus-visible:ring-offset-4;
   }
 
   .my-filter {
-    filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg) brightness(97%) contrast(99%);
+    filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg)
+      brightness(97%) contrast(99%);
   }
 
   .p-reactive {
-    @apply px-6 py-5 md:px-7 md:py-6
+    @apply px-6 py-5 md:px-7 md:py-6;
+  }
+
+  .ghost {
+    @apply bg-gray-200 [&>*]:opacity-0
+  }
+
+  .drag {
+    @apply bg-blue-500 bg-opacity-[0.3]
   }
 }

@@ -37,7 +37,7 @@ const applyGradient = () => {
 </script>
 
 <template>
-  <div
+  <li
     class="flex items-start p-reactive border-t-[1px] border-gray-200 first:border-none"
     @mouseenter="removeVisible = true"
     @mouseleave="removeVisible = false"
@@ -76,5 +76,11 @@ const applyGradient = () => {
         alt="remove todo"
       />
     </button>
-  </div>
+  </li>
 </template>
+
+<style scoped>
+.ghost > * {
+  visibility: hidden;
+}
+</style>
