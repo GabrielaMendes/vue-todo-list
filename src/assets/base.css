@@ -88,11 +88,17 @@ body::after {
 }
 
 /* Scroll bar */
+:root {
+  --track-color-light: #CACDE8;
+  --track-color-dark: #777A92;
+  --thumb-color: #3B82F6;
+}
+
 
 /* Firefox */
 * {
   scrollbar-width: 5px;
-  scrollbar-color: #3B82F6 #777A92;
+  scrollbar-color: var(--thumb-color) var(--track-color-light);
 }
 
 /* Chrome, Edge, and Safari */
@@ -101,11 +107,9 @@ body::after {
 }
 
 *::-webkit-scrollbar-track {
-  background: #777A92;
-  border-radius: 5px;
+  @apply bg-[var(--track-color-light)] dark:bg-[var(--track-color-dark)] rounded-md;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #3B82F6;
-  border-radius: 14px;
+  @apply bg-[var(--thumb-color)] rounded-full;
 }
