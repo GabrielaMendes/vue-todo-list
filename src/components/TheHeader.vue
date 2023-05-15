@@ -1,11 +1,8 @@
 <script setup>
+import { useDark } from '@vueuse/core'
 import { ref } from "vue";
 
-const props = defineProps({
-  isDark: {
-    required: true,
-  },
-});
+const isDark = useDark();
 
 const emit = defineEmits(["toggleDark"]);
 
@@ -37,7 +34,7 @@ const toggleDark = () => {
       <img
         ref="icon"
         :src="
-          !props.isDark
+          !isDark
             ? 'src/assets/images/icon-moon.svg'
             : 'src/assets/images/icon-sun.svg'
         "

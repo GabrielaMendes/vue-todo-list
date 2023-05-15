@@ -93,7 +93,7 @@ const toggleDark = useToggle(isDark);
       <!-- App Content -->
       <div class="container pt-16 px-8 max-w-4xl md:pt-24">
         <!-- App Header -->
-        <TheHeader :isDark="isDark" @toggle-dark="toggleDark()" />
+        <TheHeader @toggle-dark="toggleDark()" />
 
         <main>
           <!-- New Todo -->
