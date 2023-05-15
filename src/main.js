@@ -1,4 +1,4 @@
-import './assets/tailwind.css'
+import './assets/base.css'
 
 import { createApp } from 'vue'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'

@@ -25,14 +25,14 @@ const sendTodo = () => {
 <template>
   <form
     @submit.prevent="sendTodo"
-    class="flex items-start bg-white rounded-md p-reactive relative"
+    class="flex items-start section-style p-reactive relative"
   >
     <input
       type="checkbox"
       name="checkbox"
       id="checkbox"
       disabled
-      class="appearance-none h-6 w-6 border-[1.5px] border-gray-200 rounded-full mr-4"
+      class="appearance-none h-6 w-6 border-[1.5px] border-gray-200 dark:border-dark-grayish-blue rounded-full mr-4"
     />
     <div v-auto-animate>
       <label for="newTodo" class="hidden">New Todo:</label>
@@ -41,7 +41,7 @@ const sendTodo = () => {
         type="text"
         placeholder="Create a new todo..."
         v-model="newTodo"
-        class="focus:outline-none"
+        class="focus:outline-none dark:bg-inherit"
         @blur="
           errorMessage = false;
           addVisible = false;
@@ -64,7 +64,7 @@ const sendTodo = () => {
           v-show="addVisible"
           src="src/assets/images/icon-cross.svg"
           alt="add todo"
-          class="transition-color duration-150 ease-in rotate-45 hover:my-filter"
+          class="transition-color duration-150 ease-in rotate-45 dark:dark-filter hover:add-filter"
         />
       </transition>
     </button>

@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic styles */
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-gray-100 font-josefin-sans md:text-lg text-very-dark-grayish-blue dark:text-light-grayish-blue relative;
+}
+
+body::after {
+  @apply content-[''] bg-very-dark-blue absolute top-0 bottom-0 left-0 right-0 opacity-0 dark:opacity-100 transition-opacity duration-200 ease-out z-[-1];
+}
+
+/* Custom utilities */
+@layer utilities {
+  .my-focus-visible {
+    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-light-purple-pink dark:focus-visible:ring-blue-500 focus-visible:ring-offset-4 dark:focus-visible:ring-offset-very-dark-desaturated-blue;
+  }
+
+  .add-filter {
+    filter: invert(43%) sepia(91%) saturate(485%) hue-rotate(176deg)
+      brightness(97%) contrast(99%);
+  }
+
+  .dark-filter {
+    filter: invert(52%) sepia(14%) saturate(504%) hue-rotate(196deg)
+      brightness(91%) contrast(92%);
+  }
+
+  .my-gradient {
+    @apply bg-gradient-to-br from-light-blue to-strong-purple-pink;
+  }
+
+  .p-reactive {
+    @apply px-6 py-5 md:px-7 md:py-6;
+  }
+
+  .section-style {
+    @apply rounded-md bg-white dark:bg-very-dark-desaturated-blue;
+  }
+
+  .my-border-style {
+    @apply border-t-[1px] border-gray-200 dark:border-dark-grayish-blue;
+  }
+}
+
+/* Custom elements */
+@layer components {
+  .checkbox-inner-bg {
+    @apply h-[22.5px] w-[22.5px] bg-white rounded-full absolute left-[0.95px] top-[0.95px] dark:bg-very-dark-desaturated-blue;
+  }
+}
+
+/* Draggable classes */
+.ghost {
+  @apply bg-gray-200 dark:bg-very-dark-blue first:rounded-t-md [&>*]:opacity-0;
+}
+
+.drag {
+  @apply bg-blue-500 dark:bg-opacity-[0.8] bg-opacity-[0.3] rounded-md border-none;
+}
+
+/* Transition classes */
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-all duration-300 ease-out;
+}
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0;
+}
+
+.fade-200-enter-active,
+.fade-200-leave-active {
+  @apply transition-all duration-200 ease-out;
+}
+.fade-200-enter-from,
+.fade-200-leave-to {
+  @apply opacity-0;
+}

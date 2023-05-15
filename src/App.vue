@@ -1,7 +1,7 @@
 <script setup>
 import { vAutoAnimate } from "@formkit/auto-animate";
-import { useAutoAnimate } from "@formkit/auto-animate/vue"
-import { watchDeep } from "@vueuse/core";
+import { useAutoAnimate } from "@formkit/auto-animate/vue";
+import { watchDeep, useDark, useToggle } from "@vueuse/core";
 import draggable from "vuedraggable";
 import { computed, onMounted, ref, watch } from "vue";
 import TheHeader from "@/components/TheHeader.vue";
@@ -75,25 +75,32 @@ const todosToShow = computed(() => {
 
 // const [drag] = useAutoAnimate()
 
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 </script>
 
 <template>
   <div class="min-w-screen min-h-screen">
     <!-- Background Picture -->
     <div
-      class="bg-[url('src/assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-top bg-cover w-full h-[278px] md:bg-[url('src/assets/images/bg-desktop-light.jpg')] md:h-[360px]"
+      class="bg-no-repeat bg-top bg-cover w-full h-[278px] md:h-[360px]"
+      :class="
+        !isDark
+          ? `bg-[url('src/assets/images/bg-mobile-light.jpg')] md:bg-[url('src/assets/images/bg-desktop-light.jpg')]`
+          : `bg-[url('src/assets/images/bg-mobile-dark.jpg')] md:bg-[url('src/assets/images/bg-desktop-dark.jpg')]`
+      "
     >
       <!-- App Content -->
       <div class="container pt-16 px-8 max-w-4xl md:pt-24">
         <!-- App Header -->
-        <TheHeader />
+        <TheHeader :isDark="isDark" @toggle-dark="toggleDark()" />
 
         <main>
           <!-- New Todo -->
           <NewTodo @add-todo="addTodo" />
 
           <!-- Todo List -->
-          <div v-auto-animate class="mt-5 rounded-md bg-white shadow-custom">
+          <div v-auto-animate class="mt-5 section-style shadow-custom">
             <div v-if="todoList.length === 0" class="text-center px-7 py-6">
               <h3
                 class="mt-2 mb-3 text-3xl text-transparent font-bold my-gradient bg-clip-text"
@@ -136,13 +143,13 @@ const todosToShow = computed(() => {
 
             <!-- Summary, Filters and Clear -->
             <div
-              class="text-dark-grayish-blue grid grid-cols-2 md:grid-cols-3 p-reactive border-t-[1px] border-gray-200"
-              :class="todoList.length === 0 ? ' hidden': ''"
+              class="text-dark-grayish-blue w-full grid grid-cols-2 md:grid-cols-3 p-reactive my-border-style"
+              :class="todoList.length === 0 ? ' hidden' : ''"
             >
               <p class="text-sm">{{ todosLeft.length }} items left</p>
               <div
                 id="filters"
-                class="justify-self-center text-base hidden md:flex gap-5 "
+                class="justify-self-center text-base hidden md:flex gap-5"
               >
                 <BaseFilterButton
                   :currentFilter="filter"
@@ -163,7 +170,7 @@ const todosToShow = computed(() => {
               <button
                 type="button"
                 @click.prevent="clearCompleted"
-                class="rounded-sm text-right text-sm my-focus-visible hover:text-very-dark-grayish-blue"
+                class="rounded-sm w-fit ml-auto text-sm my-focus-visible hover:text-very-dark-grayish-blue dark:hover:text-light-grayish-blue"
               >
                 Clear Completed
               </button>
@@ -173,8 +180,8 @@ const todosToShow = computed(() => {
           <!-- Filters Mobile -->
           <transition name="fade">
             <div
-              class="text-dark-grayish-blue text-base mt-5 rounded-md bg-white"
-              :class="todoList.length === 0 ? ' hidden': ''"
+              class="text-dark-grayish-blue text-base mt-5 section-style"
+              :class="todoList.length === 0 ? ' hidden' : ''"
             >
               <div class="p-reactive flex gap-5 justify-center md:hidden">
                 <BaseFilterButton
@@ -199,7 +206,7 @@ const todosToShow = computed(() => {
 
         <transition name="fade">
           <footer
-            v-show="filter === 'All'"
+            v-show="filter === 'All' && todoList.length"
             class="w-full mt-10 pb-5 text-center text-base text-dark-grayish-blue"
           >
             Drag and drop to reorder list
