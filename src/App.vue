@@ -83,7 +83,7 @@ const toggleDark = useToggle(isDark);
   <div class="min-w-screen min-h-screen">
     <!-- Background Picture -->
     <div
-      class="bg-no-repeat bg-top bg-cover w-full h-[278px] md:h-[360px]"
+      class="bg-no-repeat bg-top bg-cover w-full h-[250px] md:h-[360px]"
       :class="
         !isDark
           ? `bg-[url('src/assets/images/bg-mobile-light.jpg')] md:bg-[url('src/assets/images/bg-desktop-light.jpg')]`
@@ -91,7 +91,7 @@ const toggleDark = useToggle(isDark);
       "
     >
       <!-- App Content -->
-      <div class="container pt-16 px-8 max-w-4xl md:pt-24">
+      <div class="container pt-14 px-8 max-w-4xl md:pt-24">
         <!-- App Header -->
         <TheHeader @toggle-dark="toggleDark()" />
 
@@ -110,36 +110,37 @@ const toggleDark = useToggle(isDark);
               <p class="text-base">Add a new todo to start</p>
             </div>
 
-            <!-- Draggable only when full list -->
-            <draggable
-              v-if="filter === 'All'"
-              v-auto-animate
-              ref="drag"
-              tag="ul"
-              v-model="todoList"
-              item-key="id"
-              drag-class="drag"
-              ghost-class="ghost"
-            >
-              <template #item="{ element }">
+            <div class="max-h-[calc(100vh_-_450px)] md:max-h-[calc(100vh_-_470px)] overflow-y-auto">
+              <!-- Draggable only when full list -->
+              <draggable
+                v-if="filter === 'All'"
+                v-auto-animate
+                ref="drag"
+                tag="ul"
+                v-model="todoList"
+                item-key="id"
+                drag-class="drag"
+                ghost-class="ghost"
+              >
+                <template #item="{ element }">
+                  <TodoItem
+                    :todo="element"
+                    @remove-todo="removeTodo"
+                    @toggle-completed="toggleCompleted"
+                  />
+                </template>
+              </draggable>
+              <!-- Not allowed to drag -->
+              <ul v-else v-auto-animate>
                 <TodoItem
-                  :todo="element"
+                  v-for="todo in todosToShow"
+                  :key="todo.id"
+                  :todo="todo"
                   @remove-todo="removeTodo"
                   @toggle-completed="toggleCompleted"
                 />
-              </template>
-            </draggable>
-
-            <!-- Not allowed to drag -->
-            <ul v-else v-auto-animate>
-              <TodoItem
-                v-for="todo in todosToShow"
-                :key="todo.id"
-                :todo="todo"
-                @remove-todo="removeTodo"
-                @toggle-completed="toggleCompleted"
-              />
-            </ul>
+              </ul>
+            </div>
 
             <!-- Summary, Filters and Clear -->
             <div

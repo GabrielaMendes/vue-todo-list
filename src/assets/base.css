@@ -7,12 +7,16 @@ html.dark {
   color-scheme: dark;
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
-  @apply bg-gray-100 font-josefin-sans md:text-lg text-very-dark-grayish-blue dark:text-light-grayish-blue relative;
+  @apply h-full bg-gray-100 font-josefin-sans md:text-lg text-very-dark-grayish-blue dark:text-light-grayish-blue relative;
 }
 
 body::after {
-  @apply content-[''] bg-very-dark-blue absolute top-0 bottom-0 left-0 right-0 opacity-0 dark:opacity-100 transition-opacity duration-200 ease-out z-[-1];
+  @apply h-full content-[''] bg-very-dark-blue absolute top-0 bottom-0 left-0 right-0 opacity-0 dark:opacity-100 transition-opacity duration-200 ease-out z-[-1];
 }
 
 /* Custom utilities */
@@ -81,4 +85,27 @@ body::after {
 .fade-200-enter-from,
 .fade-200-leave-to {
   @apply opacity-0;
+}
+
+/* Scroll bar */
+
+/* Firefox */
+* {
+  scrollbar-width: 5px;
+  scrollbar-color: #3B82F6 #777A92;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #777A92;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3B82F6;
+  border-radius: 14px;
 }

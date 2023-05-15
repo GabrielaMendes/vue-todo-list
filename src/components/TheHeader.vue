@@ -22,7 +22,7 @@ const toggleDark = () => {
 </script>
 
 <template>
-  <header class="flex items-center justify-between mb-12 md:items-start">
+  <header class="flex items-center justify-between mb-8 md:mb-12 md:items-start">
     <h1 class="font-bold text-4xl text-white tracking-[.3em] md:text-6xl">
       TODO
     </h1>
