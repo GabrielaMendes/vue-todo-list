@@ -118,7 +118,7 @@ const toggleDark = useToggle(isDark);
               <p class="text-base">Add a new todo to start</p>
             </div>
 
-            <div class="max-h-[calc(100vh_-_450px)] md:max-h-[calc(100vh_-_470px)] overflow-y-auto">
+            <div class="max-h-[calc(100vh_-_450px)] md:max-h-[calc(100vh_-_470px)] overflow-x-hidden overflow-y-auto">
               <!-- Draggable only when full list -->
               <draggable
                 :disabled="filter !== 'All'"
