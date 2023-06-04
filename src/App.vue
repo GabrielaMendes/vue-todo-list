@@ -61,16 +61,24 @@ const changeFilter = (option) => {
   filter.value = option;
 };
 
-const todosToShow = computed(() => {
-  if (filter.value === "Active") {
-    return todosLeft.value;
-  }
+const todosToShow = computed({
+  get() {
+    if (filter.value === "Active") {
+      return todosLeft.value;
+    }
 
-  if (filter.value === "Completed") {
-    return todosCompleted.value;
-  }
+    if (filter.value === "Completed") {
+      return todosCompleted.value;
+    }
 
-  return todoList.value;
+    return todoList.value;
+  },
+
+  set(value) {
+    if (value.length === todoList.value.length) {
+      todoList.value = value
+    }
+  }
 });
 
 // const [drag] = useAutoAnimate()
@@ -113,11 +121,11 @@ const toggleDark = useToggle(isDark);
             <div class="max-h-[calc(100vh_-_450px)] md:max-h-[calc(100vh_-_470px)] overflow-y-auto">
               <!-- Draggable only when full list -->
               <draggable
-                v-if="filter === 'All'"
+                :disabled="filter !== 'All'"
                 v-auto-animate
                 ref="drag"
                 tag="ul"
-                v-model="todoList"
+                v-model="todosToShow"
                 item-key="id"
                 drag-class="drag"
                 ghost-class="ghost"
@@ -130,16 +138,6 @@ const toggleDark = useToggle(isDark);
                   />
                 </template>
               </draggable>
-              <!-- Not allowed to drag -->
-              <ul v-else v-auto-animate>
-                <TodoItem
-                  v-for="todo in todosToShow"
-                  :key="todo.id"
-                  :todo="todo"
-                  @remove-todo="removeTodo"
-                  @toggle-completed="toggleCompleted"
-                />
-              </ul>
             </div>
 
             <!-- Summary, Filters and Clear -->
